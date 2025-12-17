@@ -1,0 +1,43 @@
+import aiohttp
+
+
+class Client:
+    def __init__(self, base_url: str):
+        self.base_url = base_url
+
+    async def __aenter__(self):
+          self.session = aiohttp.ClientSession(base_url=self.base_url)
+          return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        await self.session.close()
+
+
+class ApiClient(Client):
+    async def get_list(self, url: str):
+        async with self.session.get(url) as response:
+            return await response.json(), response.status
+
+    async def get_one_item(self, url: str, pk: int):
+        url += str(pk)
+        async with self.session.get(url) as response:
+            return await response.json(), response.status
+
+    async def post(self, url: str, data: dict):
+        async with self.session.post(url, data=data) as response:
+            return await response.json(), response.status
+
+    async def put(self, url: str, pk: int, data: dict):
+        url += str(pk)
+        async with self.session.put(url, data=data) as response:
+            return await response.json(), response.status
+
+    async def patch(self, url: str, pk: int, data: dict):
+        url += str(pk)
+        async with self.session.patch(url, data=data) as response:
+            return await response.json(), response.status
+
+    async def delete(self, url: str, pk):
+        url += str(pk)
+        async with self.session.delete(url) as response:
+            return response.status
