@@ -14,12 +14,9 @@ class Client:
 
 
 class ApiClient(Client):
-    async def get_list(self, url: str):
-        async with self.session.get(url) as response:
-            return await response.json(), response.status
-
-    async def get_one_item(self, url: str, pk: int):
-        url += str(pk)
+    async def get(self, url: str, pk: int = None):
+        if pk:
+            url += str(pk)
         async with self.session.get(url) as response:
             return await response.json(), response.status
 
