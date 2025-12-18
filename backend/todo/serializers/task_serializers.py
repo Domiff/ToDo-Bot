@@ -27,7 +27,7 @@ class TaskBaseSerializer(ModelSerializer):
 
 class TaskListSerializer(TaskBaseSerializer):
     class Meta(TaskBaseSerializer.Meta):
-        fields = TaskBaseSerializer.Meta.fields + ("pk", "body", "completed")
+        fields = TaskBaseSerializer.Meta.fields + ("pk", "body", "completed", "created_at")
 
 
 class TaskDetailSerializer(TaskBaseSerializer):
