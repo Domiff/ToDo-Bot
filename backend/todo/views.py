@@ -5,6 +5,7 @@ from rest_framework.generics import (
     RetrieveAPIView,
     UpdateAPIView,
 )
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Task
 from .serializers import (
@@ -16,13 +17,18 @@ from .serializers import (
 
 
 class TodoListView(ListAPIView):
-    queryset = Task.objects.all()
     serializer_class = TaskListSerializer
+    permission_classes = IsAuthenticated,
+
+    def get_queryset(self):
+        return Task.objects.filter(creator=self.request.user)
 
 
 class TodoDetailView(RetrieveAPIView):
-    queryset = Task.objects.all()
     serializer_class = TaskDetailSerializer
+
+    def get_queryset(self):
+        return Task.objects.filter(creator=self.request.user)
 
 
 class TodoCreateView(CreateAPIView):
@@ -31,9 +37,12 @@ class TodoCreateView(CreateAPIView):
 
 
 class TodoUpdateView(UpdateAPIView):
-    queryset = Task.objects.all()
     serializer_class = TaskUpdateSerializer
+
+    def get_queryset(self):
+        return Task.objects.filter(creator=self.request.user)
 
 
 class TodoDeleteView(DestroyAPIView):
-    queryset = Task.objects.all()
+    def get_queryset(self):
+        return Task.objects.filter(creator=self.request.user)
