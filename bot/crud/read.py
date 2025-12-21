@@ -1,13 +1,14 @@
 from datetime import datetime
 from string import Template
 
+from aiogram.fsm.context import FSMContext
 from aiogram.utils import markdown
 
 from bot.api import ApiClient, urls_dict
 from bot.crud.utils import check_token
 
 
-async def get_tasks(access, refresh, state):
+async def get_tasks(access: str, refresh: str, state: FSMContext):
     headers = {"Authorization": f"Bearer {access}"}
     async with ApiClient(urls_dict.get("base_url")) as client:
         data = await client.get(urls_dict.get("read"), headers=headers)
