@@ -12,7 +12,7 @@ class ProfileSerializer(serializers.Serializer):
     last_name = serializers.CharField()
 
     def create(self, validated_data):
-        tg_id = validated_data['tg_id']
+        tg_id = validated_data["tg_id"]
         tg_profile = TgProfile.objects.filter(tg_id=tg_id).select_related("user").first()
 
         if tg_profile:
