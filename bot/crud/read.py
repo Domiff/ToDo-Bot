@@ -22,7 +22,9 @@ async def get_tasks(access: str, refresh: str, state: FSMContext):
 async def prepare_message(access: str, refresh: str, state):
     data = await get_tasks(access, refresh, state)
     message_for_user = []
-
+    if len(data) == 0:
+        message_for_user = ["You dont have any tasks"]
+        return message_for_user
     for i in range(len(data)):
         title = data[i]["title"]
         deadline = datetime.fromisoformat(data[i]["deadline"]).strftime(
