@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from rest_framework.fields import HiddenField, CurrentUserDefault
 from rest_framework.relations import SlugRelatedField
 from rest_framework.serializers import ModelSerializer
 
@@ -10,11 +10,9 @@ class TaskBaseSerializer(ModelSerializer):
         slug_field="urgency",
         queryset=Category.objects.all(),
     )
-    creator = SlugRelatedField(
-        slug_field="username",
-        queryset=User.objects.all(),
+    creator = HiddenField(
+        default=CurrentUserDefault()
     )
-
     class Meta:
         model = Task
         fields = (
