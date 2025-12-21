@@ -19,7 +19,7 @@ body_window = Window(
 )
 
 deadline_window = Window(
-    Const("Enter deadline: "),
+    Const("Enter deadline in format DD.MM.YYYY HH:MM: "),
     TextInput(id="deadline", on_success=deadline_handler),
     state=CreateStates.deadline,
 )

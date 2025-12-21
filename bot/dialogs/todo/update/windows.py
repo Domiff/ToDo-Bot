@@ -57,7 +57,7 @@ body_window = Window(
 
 
 deadline_window = Window(
-    Const("Enter a new deadline or confirm to update the data:"),
+    Const("Enter a new deadline in format DD.MM.YYYY HH:MM or confirm to update the data:"),
     TextInput(
         id="task_deadline",
         on_success=edit_deadline_handler
