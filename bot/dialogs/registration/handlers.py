@@ -16,5 +16,11 @@ async def confirm(
     tokens_dict = {"access": access, "refresh": refresh}
     state: FSMContext = dialog_manager.middleware_data["state"]
     await state.update_data(tokens_dict)
-    await callback.message.answer(f"You registered\n{markdown.hcode('/show_tasks')}")
+    await callback.message.answer(
+        f"You registered\n"
+        f"{markdown.hcode('/show_tasks')}\n"
+        f"{markdown.hcode('/create_task')}\n"
+        f"{markdown.hcode('/update_task')}\n"
+        f"{markdown.hcode('/delete_task')}\n"
+    )
     await dialog_manager.done()
