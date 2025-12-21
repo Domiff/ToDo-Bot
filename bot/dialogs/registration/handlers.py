@@ -6,7 +6,7 @@ from aiogram_dialog import DialogManager
 from bot.register import register
 
 
-async def confirm(
+async def confirm_registration(
     callback: CallbackQuery, button, dialog_manager: DialogManager
 ) -> None:
     user = callback.from_user
