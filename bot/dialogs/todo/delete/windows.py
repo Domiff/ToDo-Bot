@@ -1,13 +1,12 @@
 from aiogram_dialog import Window
-from aiogram_dialog.widgets.kbd import Column, Select, Button
-from aiogram_dialog.widgets.text import Format, Const
+from aiogram_dialog.widgets.kbd import Button, Column, Select
+from aiogram_dialog.widgets.text import Const, Format
 
 from bot.dialogs.todo.getters import tasks_getter
 from bot.dialogs.todo.update.handlers import cancel_handler
-from .handlers import confirm_handler
-from .states import DeleteStates
-from .handlers import choose_task_handler
 
+from .handlers import choose_task_handler, confirm_handler
+from .states import DeleteStates
 
 choose_task_window = Window(
     Format("Select a task or cancel deleting:" ),

@@ -4,8 +4,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from aiogram_dialog import DialogManager, StartMode
 
-from .states import CreateStates
 from .dialog import create_dialog
+from .states import CreateStates
 
 router = Router()
 router.include_router(create_dialog)

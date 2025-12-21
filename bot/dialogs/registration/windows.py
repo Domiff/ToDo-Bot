@@ -1,10 +1,9 @@
 from aiogram_dialog import Window
-from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.kbd import Button
+from aiogram_dialog.widgets.text import Const
 
-from .states import RegistrationState
 from .handlers import confirm
-
+from .states import RegistrationState
 
 confirm_window = Window(
     Const("Hello! Register in system?"),

@@ -1,6 +1,4 @@
-from ..api import AuthClient
-
-from ..api import urls_dict
+from ..api import AuthClient, urls_dict
 
 
 async def register(user):

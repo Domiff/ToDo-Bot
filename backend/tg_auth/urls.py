@@ -2,7 +2,6 @@ from django.urls import path
 
 from .views import RegisterAPIView
 
-
 app_name = "tg_auth"
 
 urlpatterns = [

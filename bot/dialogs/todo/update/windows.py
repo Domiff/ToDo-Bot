@@ -1,13 +1,20 @@
 from aiogram_dialog import Window
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Select, Column, Button
-from aiogram_dialog.widgets.text import Format, Const
+from aiogram_dialog.widgets.kbd import Button, Column, Select
+from aiogram_dialog.widgets.text import Const, Format
 
-from .handlers import choose_task_handler, choose_filed_handler, edit_title_handler, edit_body_handler, \
-    edit_deadline_handler, confirm_handler, cancel_handler, edit_category_handler
-from .states import UpdateState
 from ..getters import tasks_getter
-
+from .handlers import (
+    cancel_handler,
+    choose_filed_handler,
+    choose_task_handler,
+    confirm_handler,
+    edit_body_handler,
+    edit_category_handler,
+    edit_deadline_handler,
+    edit_title_handler,
+)
+from .states import UpdateState
 
 choose_task_window = Window(
     Format("Select a task or cancel updating:" ),

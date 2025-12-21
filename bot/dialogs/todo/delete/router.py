@@ -7,7 +7,6 @@ from aiogram_dialog import DialogManager, StartMode
 from .dialog import delete_dialog
 from .states import DeleteStates
 
-
 router = Router()
 router.include_router(delete_dialog)
 

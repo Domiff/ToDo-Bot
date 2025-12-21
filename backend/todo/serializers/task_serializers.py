@@ -1,4 +1,4 @@
-from rest_framework.fields import HiddenField, CurrentUserDefault
+from rest_framework.fields import CurrentUserDefault, HiddenField
 from rest_framework.relations import SlugRelatedField
 from rest_framework.serializers import ModelSerializer
 

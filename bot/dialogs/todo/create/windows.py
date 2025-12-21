@@ -1,10 +1,17 @@
 from aiogram_dialog import Window
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Button, Column
+from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.text import Const
 
+from .handlers import (
+    body_handler,
+    confirm_create_handler,
+    deadline_handler,
+    primary_handler,
+    secondary_handler,
+    title_handler,
+)
 from .states import CreateStates
-from .handlers import title_handler, body_handler, deadline_handler, primary_handler, secondary_handler, confirm_create_handler
 
 title_window = Window(
     Const("Enter title: "),
