@@ -3,7 +3,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     BOT_TOKEN: str
-    REDIS_URL: str
+    REDIS_HOST: str
+    REDIS_PORT: int
+    REDIS_DB: int
 
     model_config = SettingsConfigDict(env_file="../.env.bot", env_file_encoding="utf-8")
 
