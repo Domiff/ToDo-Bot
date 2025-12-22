@@ -1,7 +1,7 @@
 [project]
 name = "todo"
 version = "0.1.0"
-description = "Add your description here"
+description = "ToDo bot"
 requires-python = ">=3.13"
 dependencies = [
     "aiogram>=3.23.0",
@@ -46,5 +46,5 @@ fixable = ["ALL"]
 unfixable = []
 
 [tool.ruff.lint.isort]
-known-first-party = ["PROJECT AND APPS NAMES"]
+known-first-party = ["backend", "bot"]
 combine-as-imports = true
