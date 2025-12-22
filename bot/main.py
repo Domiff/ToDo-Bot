@@ -7,10 +7,11 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.storage.base import DefaultKeyBuilder
 from aiogram.fsm.storage.redis import RedisStorage
 from aiogram_dialog import setup_dialogs
-from config import settings
-from dialogs.registration import register_router
-from dialogs.todo import todo_router
 from redis.asyncio import Redis
+
+from bot.dialogs.registration import register_router
+from bot.dialogs.todo import todo_router
+from bot.config import settings
 
 redis = Redis(
     host=settings.REDIS_HOST,
