@@ -1,10 +1,13 @@
-urls_dict = {
-    "base_url": "http://backend:8000/",
-    "read": "api/list/",
-    "create": "api/create/",
-    "update": "api/update/",
-    "delete": "api/delete/",
+from bot.config import settings
 
-    "register": "auth/register/",
-    "refresh": "token/refresh/",
+
+urls_dict = {
+    "base_url": f"{settings.BASE_URL}",
+    "read": f"{settings.READ}",
+    "create": f"{settings.CREATE}",
+    "update": f"{settings.UPDATE}",
+    "delete": f"{settings.DELETE}",
+
+    "register": f"{settings.REGISTER}",
+    "refresh": f"{settings.REFRESH}",
 }
