@@ -894,38 +894,44 @@ name = "todo"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "aiogram" },
-    { name = "aiogram-dialog" },
+    { name = "pydantic-settings" },
+]
+
+[package.dev-dependencies]
+backend = [
     { name = "celery" },
     { name = "django" },
     { name = "djangorestframework" },
     { name = "djangorestframework-simplejwt" },
     { name = "gunicorn" },
     { name = "psycopg", extra = ["binary"] },
-    { name = "pydantic-settings" },
+]
+bot = [
+    { name = "aiogram" },
+    { name = "aiogram-dialog" },
     { name = "redis" },
 ]
-
-[package.dev-dependencies]
 dev = [
     { name = "ruff" },
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "aiogram", specifier = ">=3.23.0" },
-    { name = "aiogram-dialog", specifier = ">=2.4.0" },
+requires-dist = [{ name = "pydantic-settings", specifier = ">=2.12.0" }]
+
+[package.metadata.requires-dev]
+backend = [
     { name = "celery", specifier = ">=5.6.0" },
     { name = "django", specifier = ">=6.0" },
     { name = "djangorestframework", specifier = ">=3.16.1" },
     { name = "djangorestframework-simplejwt", specifier = ">=5.5.1" },
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.3.2" },
-    { name = "pydantic-settings", specifier = ">=2.12.0" },
+]
+bot = [
+    { name = "aiogram", specifier = ">=3.23.0" },
+    { name = "aiogram-dialog", specifier = ">=2.4.0" },
     { name = "redis", specifier = ">=7.1.0" },
 ]
-
-[package.metadata.requires-dev]
 dev = [{ name = "ruff", specifier = ">=0.14.9" }]
 
 [[package]]
