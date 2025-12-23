@@ -5,10 +5,17 @@ services:
     env_file:
       .env.django
     command:
-      - "gunicorn"
-      - "todo_manager.wsgi:application"
-      - "--bind"
-      - "0.0.0.0:8000"
+    - gunicorn
+    - --access-logfile
+    - "-"
+    - --error-logfile
+    - "-"
+    - --log-level
+    - debug
+    - todo_manager.wsgi:application
+    - --bind
+    - 0.0.0.0:8000
+
     ports:
       - "8000:8000"
 
