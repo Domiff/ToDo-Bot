@@ -67,7 +67,7 @@ async def confirm_create_handler(
     refresh = tokens.get("refresh")
     title = dialog_manager.dialog_data["title"]
     body = dialog_manager.dialog_data["body"]
-    category = dialog_manager.dialog_data["category"].capitalize()
+    category = dialog_manager.dialog_data["category"]
     deadline = datetime.strptime(
         dialog_manager.dialog_data["deadline"],
         "%d.%m.%Y %H:%M"
