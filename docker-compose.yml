@@ -1,5 +1,38 @@
 services:
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    privileged: true
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-config.yml:/etc/loki/local-config.yaml
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - grafanadata:/var/lib/grafana
+
   backend:
+    container_name: backend
     build:
       dockerfile: backend/Dockerfile
     env_file:
@@ -15,16 +48,17 @@ services:
     - todo_manager.wsgi:application
     - --bind
     - 0.0.0.0:8000
-
     ports:
       - "8000:8000"
 
   redis:
+    container_name: redis
     image: redis:8-alpine
     volumes:
       - ./redis_data:/data
 
   bot:
+    container_name: bot
     build:
       context: .
       dockerfile: bot/Dockerfile
@@ -40,6 +74,7 @@ services:
       - "8080:8080"
 
   pg:
+    container_name: pg
     image: postgres:16
     env_file:
       - .env.django
@@ -48,7 +83,11 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: always
+    depends_on:
+      - backend
 
 volumes:
   pgdata:
   redis_data:
+  grafanadata:
+#  prometheusdata:
