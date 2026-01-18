@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_HOST: str
-    POSTGRES_POST: int
+    POSTGRES_PORT: int
 
     model_config = SettingsConfigDict(
         env_file="../.env.django", env_file_encoding="utf-8"
