@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "backend"]
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -44,6 +45,8 @@ INSTALLED_APPS = [
     "todo.apps.TodoConfig",
     "tg_auth.apps.TgAuthConfig",
     "rest_framework_simplejwt",
+    "adrf",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -74,6 +77,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "todo_manager.wsgi.application"
+ASGI_APPLICATION = "todo_manager.asgi.application"
 
 
 # Database
@@ -86,7 +90,7 @@ DATABASES = {
         "USER": settings.POSTGRES_USER,
         "PASSWORD": settings.POSTGRES_PASSWORD,
         "HOST": settings.POSTGRES_HOST,
-        "PORT": settings.POSTGRES_POST,
+        "PORT": settings.POSTGRES_PORT,
     }
 }
 
@@ -134,7 +138,8 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
-    )
+    ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SIMPLE_JWT = {
