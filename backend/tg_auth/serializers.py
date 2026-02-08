@@ -1,29 +1,31 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
+from adrf.serializers import Serializer
+from asgiref.sync import sync_to_async
 
 from .models import TgProfile
 
 
-class ProfileSerializer(serializers.Serializer):
+class ProfileSerializer(Serializer):
     tg_id = serializers.IntegerField()
     username = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
 
-    def create(self, validated_data):
+    async def acreate(self, validated_data):
         tg_id = validated_data["tg_id"]
-        tg_profile = TgProfile.objects.filter(tg_id=tg_id).select_related("user").first()
+        tg_profile = await TgProfile.objects.filter(tg_id=tg_id).select_related("user").afirst()
 
         if tg_profile:
             user = tg_profile.user
         else:
-            user = User.objects.create_user(username=f"tg-{tg_id}")
-            tg_profile = TgProfile.objects.create(user=user, **validated_data)
+            user = await User.objects.acreate_user(username=f"tg-{tg_id}")
+            tg_profile = await TgProfile.objects.acreate(user=user, **validated_data)
         return user
 
-    def to_representation(self, user):
-        tokens = RefreshToken.for_user(user)
+    async def ato_representation(self, user):
+        tokens = await sync_to_async(RefreshToken.for_user)(user)
         return {
             "id": user.id,
             "tokens": {
