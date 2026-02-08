@@ -41,9 +41,6 @@ class TodoCreateView(CreateAPIView):
     serializer_class = TaskCreateSerializer
     http_method_names = ["post"]
 
-    async def afilter_queryset(self, queryset):
-        return await sync_to_async(list)(queryset.filter(creator=self.request.user))
-
 
 class TodoUpdateView(UpdateAPIView):
     serializer_class = TaskUpdateSerializer
