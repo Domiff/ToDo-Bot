@@ -37,17 +37,7 @@ services:
       dockerfile: backend/Dockerfile
     env_file:
       .env.django
-    command:
-    - gunicorn
-    - --access-logfile
-    - "-"
-    - --error-logfile
-    - "-"
-    - --log-level
-    - debug
-    - todo_manager.wsgi:application
-    - --bind
-    - 0.0.0.0:8000
+    command: daphne -b 0.0.0.0 -p 8000 todo_manager.asgi:application
     ports:
       - "8000:8000"
     depends_on:
@@ -90,4 +80,3 @@ volumes:
   pgdata:
   redis_data:
   grafanadata:
-#  prometheusdata:
