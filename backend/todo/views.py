@@ -1,11 +1,14 @@
-from rest_framework.generics import (
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from adrf.generics import (
     CreateAPIView,
     DestroyAPIView,
     ListAPIView,
     RetrieveAPIView,
     UpdateAPIView,
 )
-from rest_framework.permissions import IsAuthenticated
+from asgiref.sync import sync_to_async
+from rest_framework.response import Response
 
 from .models import Task
 from .serializers import (
@@ -19,30 +22,41 @@ from .serializers import (
 class TodoListView(ListAPIView):
     serializer_class = TaskListSerializer
     permission_classes = IsAuthenticated,
+    queryset = Task.objects.all()
 
-    def get_queryset(self):
-        return Task.objects.filter(creator=self.request.user)
+    async def afilter_queryset(self, queryset):
+        return await sync_to_async(list)(queryset.filter(creator=self.request.user))
 
 
 class TodoDetailView(RetrieveAPIView):
     serializer_class = TaskDetailSerializer
+    queryset = Task.objects.all()
 
-    def get_queryset(self):
-        return Task.objects.filter(creator=self.request.user)
+    async def retrieve(self, request, pk):
+        return await Task.objects.filter(creator=self.request.user, pk=pk).afirst()
 
 
 class TodoCreateView(CreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskCreateSerializer
+    http_method_names = ["post"]
+
+    async def afilter_queryset(self, queryset):
+        return sync_to_async(list)(queryset.filter(creator=self.request.user))
 
 
 class TodoUpdateView(UpdateAPIView):
     serializer_class = TaskUpdateSerializer
+    queryset = Task.objects.all()
 
-    def get_queryset(self):
-        return Task.objects.filter(creator=self.request.user)
+    async def update(self, request, pk, **kwargs):
+        return await Task.objects.filter(creator=self.request.user, pk=pk).aupdate(**kwargs)
 
 
 class TodoDeleteView(DestroyAPIView):
-    def get_queryset(self):
-        return Task.objects.filter(creator=self.request.user)
+    queryset = Task.objects.all()
+    http_method_names = ["delete"]
+
+    async def delete(self, request, pk):
+        await Task.objects.filter(creator=self.request.user, pk=pk).adelete()
+        return Response(data={"msg": "Task was deleted"}, status=status.HTTP_204_NO_CONTENT)
