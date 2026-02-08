@@ -3,14 +3,7 @@ from django.db import models
 
 
 class Category(models.Model):
-    class UrgencyTypes(models.TextChoices):
-        PRIMARY = "Primary"
-        SECONDARY = "Secondary"
-
-    urgency = models.CharField(
-        choices=UrgencyTypes.choices,
-        default=UrgencyTypes.PRIMARY,
-    )
+    urgency = models.CharField(max_length=50)
 
     class Meta:
         verbose_name_plural = "categories"
