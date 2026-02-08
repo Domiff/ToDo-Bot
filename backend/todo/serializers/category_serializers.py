@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from adrf.serializers import ModelSerializer
 
 from ..models import Category
 

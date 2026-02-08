@@ -1,6 +1,6 @@
 from rest_framework.fields import CurrentUserDefault, HiddenField
 from rest_framework.relations import SlugRelatedField
-from rest_framework.serializers import ModelSerializer
+from adrf.serializers import ModelSerializer
 
 from ..models import Category, Task
 
