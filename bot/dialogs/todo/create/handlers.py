@@ -1,11 +1,14 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 
-from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.input import ManagedTextInput
 
 from bot.crud import create_task
+
+if TYPE_CHECKING:
+    from aiogram.fsm.context import FSMContext
 
 
 async def title_handler(

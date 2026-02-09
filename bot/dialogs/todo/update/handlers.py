@@ -1,6 +1,6 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 
-from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.input import ManagedTextInput
@@ -9,6 +9,9 @@ from aiogram_dialog.widgets.kbd import Button
 from bot.crud import update_task
 
 from .states import UpdateState
+
+if TYPE_CHECKING:
+    from aiogram.fsm.context import FSMContext
 
 
 async def choose_task_handler(

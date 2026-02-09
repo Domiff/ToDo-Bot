@@ -1,9 +1,13 @@
-from aiogram.fsm.context import FSMContext
+from typing import TYPE_CHECKING
+
 from aiogram.types import CallbackQuery
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.input import ManagedTextInput
 
 from bot.crud.delete import delete_task
+
+if TYPE_CHECKING:
+    from aiogram.fsm.context import FSMContext
 
 
 async def choose_task_handler(

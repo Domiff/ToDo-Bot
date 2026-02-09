@@ -1,9 +1,13 @@
-from aiogram.fsm.context import FSMContext
+from typing import TYPE_CHECKING
+
 from aiogram.types import CallbackQuery
 from aiogram.utils import markdown
 from aiogram_dialog import DialogManager
 
 from bot.register import register
+
+if TYPE_CHECKING:
+    from aiogram.fsm.context import FSMContext
 
 
 async def confirm_registration(
