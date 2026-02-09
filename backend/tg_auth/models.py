@@ -3,7 +3,9 @@ from django.db import models
 
 
 class TgProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile"
+    )
     tg_id = models.BigIntegerField(unique=True)
     username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)

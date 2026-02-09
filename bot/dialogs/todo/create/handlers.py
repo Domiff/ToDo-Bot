@@ -48,12 +48,16 @@ async def category_handler(
     await dialog_manager.next()
 
 
-async def primary_handler(callback: CallbackQuery, button, dialog_manager: DialogManager):
+async def primary_handler(
+    callback: CallbackQuery, button, dialog_manager: DialogManager
+):
     dialog_manager.dialog_data["category"] = "Primary"
     await dialog_manager.next()
 
 
-async def secondary_handler(callback: CallbackQuery, button, dialog_manager: DialogManager):
+async def secondary_handler(
+    callback: CallbackQuery, button, dialog_manager: DialogManager
+):
     dialog_manager.dialog_data["category"] = "Secondary"
     await dialog_manager.next()
 
@@ -69,8 +73,7 @@ async def confirm_create_handler(
     body = dialog_manager.dialog_data["body"]
     category = dialog_manager.dialog_data["category"]
     deadline = datetime.strptime(
-        dialog_manager.dialog_data["deadline"],
-        "%d.%m.%Y %H:%M"
+        dialog_manager.dialog_data["deadline"], "%d.%m.%Y %H:%M"
     ).isoformat()
     task = {
         "title": title,

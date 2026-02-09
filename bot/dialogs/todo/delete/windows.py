@@ -9,7 +9,7 @@ from .handlers import choose_task_handler, confirm_handler
 from .states import DeleteStates
 
 choose_task_window = Window(
-    Format("Select a task or cancel deleting:" ),
+    Format("Select a task or cancel deleting:"),
     Column(
         Select(
             text=Format("{item[title]}"),

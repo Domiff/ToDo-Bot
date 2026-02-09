@@ -13,4 +13,6 @@ router.include_router(register_dialog)
 
 @router.message(CommandStart())
 async def start(message: Message, dialog_manager: DialogManager, state: FSMContext):
-    await dialog_manager.start(state=RegistrationState.confirm, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(
+        state=RegistrationState.confirm, mode=StartMode.RESET_STACK
+    )

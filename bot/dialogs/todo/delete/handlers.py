@@ -17,9 +17,9 @@ async def choose_task_handler(
 
 
 async def confirm_handler(
-        callback: CallbackQuery,
-        widget: ManagedTextInput,
-        dialog_manager: DialogManager,
+    callback: CallbackQuery,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
 ):
     state: FSMContext = dialog_manager.middleware_data["state"]
     tokens = await state.get_data()

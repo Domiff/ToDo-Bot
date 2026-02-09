@@ -6,8 +6,8 @@ class Client:
         self.base_url = base_url
 
     async def __aenter__(self):
-          self.session = aiohttp.ClientSession(base_url=self.base_url)
-          return self
+        self.session = aiohttp.ClientSession(base_url=self.base_url)
+        return self
 
     async def __aexit__(self, exc_type, exc, tb):
         await self.session.close()

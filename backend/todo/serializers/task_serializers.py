@@ -1,6 +1,6 @@
+from adrf.serializers import ModelSerializer
 from rest_framework.fields import CurrentUserDefault, HiddenField
 from rest_framework.relations import SlugRelatedField
-from adrf.serializers import ModelSerializer
 
 from ..models import Category, Task
 
@@ -10,9 +10,8 @@ class TaskBaseSerializer(ModelSerializer):
         slug_field="urgency",
         queryset=Category.objects.all(),
     )
-    creator = HiddenField(
-        default=CurrentUserDefault()
-    )
+    creator = HiddenField(default=CurrentUserDefault())
+
     class Meta:
         model = Task
         fields = (
@@ -25,7 +24,12 @@ class TaskBaseSerializer(ModelSerializer):
 
 class TaskListSerializer(TaskBaseSerializer):
     class Meta(TaskBaseSerializer.Meta):
-        fields = TaskBaseSerializer.Meta.fields + ("pk", "body", "completed", "created_at")
+        fields = TaskBaseSerializer.Meta.fields + (
+            "pk",
+            "body",
+            "completed",
+            "created_at",
+        )
 
 
 class TaskDetailSerializer(TaskBaseSerializer):

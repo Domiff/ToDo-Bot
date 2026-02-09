@@ -9,9 +9,9 @@ from aiogram.fsm.storage.redis import RedisStorage
 from aiogram_dialog import setup_dialogs
 from redis.asyncio import Redis
 
+from bot.config import settings
 from bot.dialogs.registration import register_router
 from bot.dialogs.todo import todo_router
-from bot.config import settings
 
 redis = Redis(
     host=settings.REDIS_HOST,
@@ -20,7 +20,9 @@ redis = Redis(
 )
 key_builder = DefaultKeyBuilder(with_destiny=True)
 storage = RedisStorage(redis, key_builder=key_builder)
-bot = Bot(token=settings.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+bot = Bot(
+    token=settings.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+)
 dp = Dispatcher(storage=storage)
 
 

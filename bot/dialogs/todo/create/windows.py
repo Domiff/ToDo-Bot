@@ -33,8 +33,8 @@ deadline_window = Window(
 
 category_window = Window(
     Const("Enter category: "),
-        Button(Const("Primary"), id="primary", on_click=primary_handler),
-        Button(Const("Secondary"), id="secondary", on_click=secondary_handler),
+    Button(Const("Primary"), id="primary", on_click=primary_handler),
+    Button(Const("Secondary"), id="secondary", on_click=secondary_handler),
     state=CreateStates.category,
 )
 

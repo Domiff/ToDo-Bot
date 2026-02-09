@@ -6,7 +6,8 @@ from bot.crud import prepare_message
 
 
 async def get_tasks_handler(
-    callback: CallbackQuery, button, dialog_manager: DialogManager)-> None:
+    callback: CallbackQuery, button, dialog_manager: DialogManager
+) -> None:
     state: FSMContext = dialog_manager.middleware_data["state"]
     data = await state.get_data()
     access = data.get("access")

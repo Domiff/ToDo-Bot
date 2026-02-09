@@ -37,12 +37,12 @@ async def prepare_message(access: str, refresh: str, state):
         category = data[i]["category"]
         message_for_user += [
             Template(
-            f"{markdown.hbold("Title")}: $title\n"
-            f"{markdown.hbold("Body")}: $body \n"
-            f"{markdown.hbold("Deadline")}: $deadline\n"
-            f"{markdown.hbold("Created_at")}: $created_at\n"
-            f"{markdown.hbold("Category")}: $category\n"
-        ).substitute(
+                f"{markdown.hbold('Title')}: $title\n"
+                f"{markdown.hbold('Body')}: $body \n"
+                f"{markdown.hbold('Deadline')}: $deadline\n"
+                f"{markdown.hbold('Created_at')}: $created_at\n"
+                f"{markdown.hbold('Category')}: $category\n"
+            ).substitute(
                 title=title,
                 deadline=deadline,
                 body=body,

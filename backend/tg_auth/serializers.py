@@ -1,8 +1,8 @@
+from adrf.serializers import Serializer
+from asgiref.sync import sync_to_async
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from adrf.serializers import Serializer
-from asgiref.sync import sync_to_async
 
 from .models import TgProfile
 
@@ -15,7 +15,9 @@ class ProfileSerializer(Serializer):
 
     async def acreate(self, validated_data):
         tg_id = validated_data["tg_id"]
-        tg_profile = await TgProfile.objects.filter(tg_id=tg_id).select_related("user").afirst()
+        tg_profile = (
+            await TgProfile.objects.filter(tg_id=tg_id).select_related("user").afirst()
+        )
 
         if tg_profile:
             user = tg_profile.user
@@ -31,5 +33,5 @@ class ProfileSerializer(Serializer):
             "tokens": {
                 "refresh": str(tokens),
                 "access": str(tokens.access_token),
-            }
+            },
         }

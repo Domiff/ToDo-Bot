@@ -1,5 +1,3 @@
-from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 from adrf.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -8,6 +6,8 @@ from adrf.generics import (
     UpdateAPIView,
 )
 from asgiref.sync import sync_to_async
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Task
@@ -21,7 +21,7 @@ from .serializers import (
 
 class TodoListView(ListAPIView):
     serializer_class = TaskListSerializer
-    permission_classes = IsAuthenticated,
+    permission_classes = (IsAuthenticated,)
     queryset = Task.objects.all()
 
     async def afilter_queryset(self, queryset):
@@ -47,7 +47,9 @@ class TodoUpdateView(UpdateAPIView):
     queryset = Task.objects.all()
 
     async def update(self, request, pk, **kwargs):
-        return await Task.objects.filter(creator=self.request.user, pk=pk).aupdate(**kwargs)
+        return await Task.objects.filter(creator=self.request.user, pk=pk).aupdate(
+            **kwargs
+        )
 
 
 class TodoDeleteView(DestroyAPIView):
@@ -56,4 +58,6 @@ class TodoDeleteView(DestroyAPIView):
 
     async def delete(self, request, pk):
         await Task.objects.filter(creator=self.request.user, pk=pk).adelete()
-        return Response(data={"msg": "Task was deleted"}, status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            data={"msg": "Task was deleted"}, status=status.HTTP_204_NO_CONTENT
+        )

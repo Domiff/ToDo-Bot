@@ -36,39 +36,39 @@ async def choose_filed_handler(
 
 
 async def edit_title_handler(
-        message: Message,
-        widget: ManagedTextInput,
-        dialog_manager: DialogManager,
-        value: str,
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    value: str,
 ):
     dialog_manager.dialog_data["title"] = value
     await dialog_manager.next()
 
 
 async def edit_body_handler(
-        message: Message,
-        widget: ManagedTextInput,
-        dialog_manager: DialogManager,
-        value: str,
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    value: str,
 ):
     dialog_manager.dialog_data["body"] = value
     await dialog_manager.next()
 
 
 async def edit_deadline_handler(
-        message: Message,
-        widget: ManagedTextInput,
-        dialog_manager: DialogManager,
-        value: str,
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    value: str,
 ):
     dialog_manager.dialog_data["deadline"] = value
     await dialog_manager.next()
 
 
 async def edit_category_handler(
-        callback: CallbackQuery,
-        button: Button,
-        dialog_manager: DialogManager,
+    callback: CallbackQuery,
+    button: Button,
+    dialog_manager: DialogManager,
 ):
     match button.widget_id:
         case "primary":
@@ -79,9 +79,9 @@ async def edit_category_handler(
 
 
 async def confirm_handler(
-        callback: CallbackQuery,
-        widget: ManagedTextInput,
-        dialog_manager: DialogManager,
+    callback: CallbackQuery,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
 ):
     state: FSMContext = dialog_manager.middleware_data["state"]
     tokens = await state.get_data()
@@ -94,10 +94,13 @@ async def confirm_handler(
     body = dialog_manager.dialog_data.get("body") if True else None
     deadline = dialog_manager.dialog_data.get("deadline")
     if dialog_manager.dialog_data.get("deadline"):
-        deadline = datetime.strptime(
-            dialog_manager.dialog_data.get("deadline"),
-            "%d.%m.%Y %H:%M"
-        ).isoformat() if True else None
+        deadline = (
+            datetime.strptime(
+                dialog_manager.dialog_data.get("deadline"), "%d.%m.%Y %H:%M"
+            ).isoformat()
+            if True
+            else None
+        )
     task = {
         "title": title,
         "body": body,
@@ -118,9 +121,9 @@ async def confirm_handler(
 
 
 async def cancel_handler(
-        callback: CallbackQuery,
-        widget: ManagedTextInput,
-        dialog_manager: DialogManager,
+    callback: CallbackQuery,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
 ):
     await callback.message.answer("Cancelling.")
     await dialog_manager.done()

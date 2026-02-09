@@ -17,7 +17,7 @@ from .handlers import (
 from .states import UpdateState
 
 choose_task_window = Window(
-    Format("Select a task or cancel updating:" ),
+    Format("Select a task or cancel updating:"),
     Column(
         Select(
             text=Format("{item[title]}"),
@@ -43,10 +43,7 @@ choose_field_window = Window(
 
 title_window = Window(
     Const("Enter a new title or confirm to update the data:"),
-    TextInput(
-        id="task_title",
-        on_success=edit_title_handler
-    ),
+    TextInput(id="task_title", on_success=edit_title_handler),
     Button(Const("Confirm updates"), id="confirm_title", on_click=confirm_handler),
     state=UpdateState.title,
 )
@@ -54,21 +51,17 @@ title_window = Window(
 
 body_window = Window(
     Const("Enter a new body or confirm to update the data:"),
-    TextInput(
-        id="task_body",
-        on_success=edit_body_handler
-    ),
+    TextInput(id="task_body", on_success=edit_body_handler),
     Button(Const("Confirm updates"), id="confirm_body", on_click=confirm_handler),
     state=UpdateState.body,
 )
 
 
 deadline_window = Window(
-    Const("Enter a new deadline in format DD.MM.YYYY HH:MM or confirm to update the data:"),
-    TextInput(
-        id="task_deadline",
-        on_success=edit_deadline_handler
+    Const(
+        "Enter a new deadline in format DD.MM.YYYY HH:MM or confirm to update the data:"
     ),
+    TextInput(id="task_deadline", on_success=edit_deadline_handler),
     Button(Const("Confirm updates"), id="confirm_deadline", on_click=confirm_handler),
     state=UpdateState.deadline,
 )
