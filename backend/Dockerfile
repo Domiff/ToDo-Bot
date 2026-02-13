@@ -11,4 +11,4 @@ RUN uv sync --group backend
 
 COPY backend .
 
-CMD ["gunicorn", "todo_manager.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "todo_manager.asgi:application"]
