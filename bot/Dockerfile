@@ -7,13 +7,22 @@ WORKDIR /bot
 COPY ../pyproject.toml ./
 
 ENV UV_PROJECT_ENVIRONMENT=/usr/local
+
+ENV UV_SYSTEM_PYTHON=1
+
 RUN uv sync --group bot
 
 
 FROM python:3.13-slim-trixie
 
-WORKDIR /bot
+WORKDIR /app
 
-COPY  --from=builder /bot /bot
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH=/usr/local/bin:$PATH
+
+COPY --from=builder /usr/local /usr/local
+
+COPY bot /app/bot
 
 CMD ["python", "-m", "bot.main"]

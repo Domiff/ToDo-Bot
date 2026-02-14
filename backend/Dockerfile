@@ -6,6 +6,9 @@ WORKDIR /backend
 COPY ../pyproject.toml ./
 
 ENV UV_PROJECT_ENVIRONMENT=/usr/local
+
+ENV UV_SYSTEM_PYTHON=1
+
 RUN uv sync --group backend
 
 
@@ -13,6 +16,12 @@ FROM python:3.13-slim-trixie
 
 WORKDIR /backend
 
-COPY --from=builder /backend /backend
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH=/usr/local/bin:$PATH
+
+COPY --from=builder /usr/local /usr/local
+
+COPY backend /backend
 
 CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "todo_manager.asgi:application"]
